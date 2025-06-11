@@ -18,8 +18,6 @@ const myCar = new Car("Toyota");
 console.log(myCar.brand); // Toyota
 ```
 
----
-
 ### 2. Instance
 
 **Describe:**
@@ -38,8 +36,6 @@ const maria = new Person("Maria");  // instance 2
 console.log(lucas.name);  // Lucas
 console.log(maria.name);  // Maria
 ```
-
----
 
 ### 3. Classes, Attributes, and Methods
 
