@@ -6,24 +6,21 @@ A class defines the blueprint for objects. It contains attributes (properties/da
 **Code example:**
 
 ```ts
-class Person {
-  name: string;
-  surname: string;
-  age: number;
+class Person implements person {
+    name: string;
+    age: number;
 
-  constructor(name: string, surname: string, age: number) {
-    this.name = name;
-    this.surname = surname;
-    this.age = age;
-  }
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age
+    }
 
-  getFullName() {
-    return `${this.name} ${this.surname}`;
-  }
+    getPerson() {
+        return `name:${this.name},age:${this.age}`
+    }
 }
 
-const lucas = new Person("Lucas", "Garcez", 28);
-console.log(lucas.getFullName()); // Lucas Garcez
+const user = new Person('jack', 35);
 ```
 
 ### 2. Constructor
@@ -65,10 +62,6 @@ console.log(lucas.name);  // Lucas
 console.log(maria.name);  // Maria
 ```
 
-Perfect — here it is in your requested format:
-
----
-
 ### 4. **Interfaces**
 
 **Describe:**
@@ -77,46 +70,27 @@ Any class that **implements** an interface must include **everything** the inter
 
 Interfaces help ensure consistency across different classes that follow the same rules or structure.
 
----
-
 **Code example:**
 
 ```ts
-// Interface: the contract for a bank account
-interface BankAccount {
-  balance: number;
-  deposit(amount: number): void;
-  withdraw(amount: number): void;
-}
+interface person {
+    name: string;
+    age: number;
+};
 
-// A class that follows the BankAccount contract
-class CurrentAccount implements BankAccount {
-  balance: number = 0;
-  overdraftLimit: number = 500;
+class Person implements person {
+    name: string;
+    age: number;
 
-  deposit(amount: number): void {
-    this.balance += amount;
-  }
-
-  withdraw(amount: number): void {
-    if (amount <= this.balance + this.overdraftLimit) {
-      this.balance -= amount;
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age
     }
-  }
-}
 
-// Another class that follows the same interface
-class SavingsAccount implements BankAccount {
-  balance: number = 0;
-
-  deposit(amount: number): void {
-    this.balance += amount;
-  }
-
-  withdraw(amount: number): void {
-    if (amount <= this.balance) {
-      this.balance -= amount;
+    getPerson() {
+        return `name:${this.name},age:${this.age}`
     }
-  }
 }
+
+const user = new Person('jack', 35);
 ```
