@@ -331,12 +331,3 @@ class SimpleAccount extends AbstractAccount {
   }
 }
 ```
-
-### ✅ Quick Summary Table
-
-| Principle         | What it means                                  | Benefit                         |
-| ----------------- | ---------------------------------------------- | ------------------------------- |
-| **Inheritance**   | One class reuses another class’s code          | Reuse & extend behavior         |
-| **Polymorphism**  | Same method, different implementation          | Flexibility                     |
-| **Encapsulation** | Hide internal details, show only what's needed | Security & clean code           |
-| **Abstraction**   | Define *what* should happen, not *how*         | Focus on structure, not details |
