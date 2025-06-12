@@ -1,9 +1,9 @@
-const person = {
-    name: "Gazi",
-    age: 23,
+interface person {
+    name: string;
+    age: number;
 };
 
-class Person {
+class Person implements person {
     name: string;
     age: number;
 

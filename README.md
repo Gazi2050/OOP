@@ -64,3 +64,59 @@ const maria = new Person("Maria");  // instance 2
 console.log(lucas.name);  // Lucas
 console.log(maria.name);  // Maria
 ```
+
+Perfect — here it is in your requested format:
+
+---
+
+### 4. **Interfaces**
+
+**Describe:**
+An **interface** in TypeScript defines a **contract** — a list of required **attributes and methods**.
+Any class that **implements** an interface must include **everything** the interface defines, with **matching types**.
+
+Interfaces help ensure consistency across different classes that follow the same rules or structure.
+
+---
+
+**Code example:**
+
+```ts
+// Interface: the contract for a bank account
+interface BankAccount {
+  balance: number;
+  deposit(amount: number): void;
+  withdraw(amount: number): void;
+}
+
+// A class that follows the BankAccount contract
+class CurrentAccount implements BankAccount {
+  balance: number = 0;
+  overdraftLimit: number = 500;
+
+  deposit(amount: number): void {
+    this.balance += amount;
+  }
+
+  withdraw(amount: number): void {
+    if (amount <= this.balance + this.overdraftLimit) {
+      this.balance -= amount;
+    }
+  }
+}
+
+// Another class that follows the same interface
+class SavingsAccount implements BankAccount {
+  balance: number = 0;
+
+  deposit(amount: number): void {
+    this.balance += amount;
+  }
+
+  withdraw(amount: number): void {
+    if (amount <= this.balance) {
+      this.balance -= amount;
+    }
+  }
+}
+```
