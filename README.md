@@ -168,3 +168,175 @@ They are similar because both **define a structure** that other classes must fol
 
 * **Interface:** Just says *“you must have these methods”* — no code inside them.
 * **Abstract class:** Can say *“here’s some code you can use, but you must also write this missing part.”*
+
+## `Object-Oriented Programming (OOP) principles`
+
+### 1. **Inheritance**
+
+**Describe:**
+Inheritance allows one class (**child**) to use properties and methods of another class (**parent**).
+This helps **reuse code** and **specialize behavior** in the child class.
+
+**Code example:**
+
+```ts
+class BankAccount {
+  balance: number;
+
+  constructor(initialBalance: number) {
+    this.balance = initialBalance;
+  }
+
+  deposit(amount: number) {
+    this.balance += amount;
+  }
+
+  withdraw(amount: number) {
+    if (amount <= this.balance) {
+      this.balance -= amount;
+    }
+  }
+}
+
+class CurrentAccount extends BankAccount {
+  overdraftLimit: number;
+
+  constructor(initialBalance: number, overdraftLimit: number) {
+    super(initialBalance);
+    this.overdraftLimit = overdraftLimit;
+  }
+
+  override withdraw(amount: number) {
+    const total = this.balance + this.overdraftLimit;
+    if (amount <= total) {
+      this.balance -= amount;
+    }
+  }
+}
+
+const account = new CurrentAccount(100, 50);
+account.deposit(50);     // balance: 150
+account.withdraw(180);   // balance: -30
+console.log(account);
+```
+
+### 2. **Polymorphism**
+
+**Describe:**
+Polymorphism means **same method name**, but **different behavior** depending on the object.
+This allows flexible and reusable code.
+
+**Code example:**
+
+```ts
+function sendMoney(sender: BankAccount, receiver: BankAccount, amount: number) {
+  sender.withdraw(amount);
+  receiver.deposit(amount);
+}
+
+const lucas = new CurrentAccount(300, 100);
+const maria = new BankAccount(100);
+
+sendMoney(lucas, maria, 200); // lucas.withdraw uses CurrentAccount logic
+console.log(lucas, maria);
+```
+
+> `withdraw` works differently for each account type — but we **call it the same way**. That’s polymorphism!
+
+### 3. **Encapsulation**
+
+**Describe:**
+Encapsulation means **hiding internal data** and only exposing what’s needed.
+This makes the code **secure**, **modular**, and **easier to maintain**.
+
+**Code example:**
+
+```ts
+class Person {
+  private firstName: string;
+  private lastName: string;
+  protected birthDate: Date;
+
+  constructor(firstName: string, lastName: string, birthDate: Date) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthDate = birthDate;
+  }
+
+  public getFullName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+class Professor extends Person {
+  getProfile() {
+    console.log(this.getFullName()); // ✅ public
+    console.log(this.birthDate);     // ✅ protected
+    // console.log(this.firstName);  // ❌ Error - private
+  }
+}
+
+const lucas = new Professor("Lucas", "Garcez", new Date("1996-02-06"));
+console.log(lucas.getFullName());    // ✅
+```
+
+### 4. **Abstraction**
+
+**Describe:**
+Abstraction means defining the **structure** without full implementation.
+It is done using **interfaces** or **abstract classes**.
+
+**Code example (interface):**
+
+```ts
+interface BankAccount {
+  balance: number;
+  deposit(amount: number): void;
+  withdraw(amount: number): void;
+}
+
+class MyAccount implements BankAccount {
+  balance: number = 0;
+
+  deposit(amount: number): void {
+    this.balance += amount;
+  }
+
+  withdraw(amount: number): void {
+    this.balance -= amount;
+  }
+}
+```
+
+**Code example (abstract class):**
+
+```ts
+abstract class AbstractAccount {
+  balance: number;
+
+  constructor(initialBalance: number) {
+    this.balance = initialBalance;
+  }
+
+  deposit(amount: number): void {
+    this.balance += amount;
+  }
+
+  abstract withdraw(amount: number): void;
+}
+
+class SimpleAccount extends AbstractAccount {
+  withdraw(amount: number): void {
+    this.balance -= amount;
+  }
+}
+```
+
+### ✅ Quick Summary Table
+
+| Principle         | What it means                                  | Benefit                         |
+| ----------------- | ---------------------------------------------- | ------------------------------- |
+| **Inheritance**   | One class reuses another class’s code          | Reuse & extend behavior         |
+| **Polymorphism**  | Same method, different implementation          | Flexibility                     |
+| **Encapsulation** | Hide internal details, show only what's needed | Security & clean code           |
+| **Abstraction**   | Define *what* should happen, not *how*         | Focus on structure, not details |
