@@ -66,4 +66,4 @@ console.log(jack);
 const emma = new SavingsAccount(1500);
 emma.deposit(100);
 emma.withdraw(300);
-console.log(emma);
+// console.log(emma);
